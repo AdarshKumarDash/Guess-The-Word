@@ -11,6 +11,10 @@ document.getElementById("player_answer").innerHTML = "Answer Turn:" + player2_na
 
 function send() {
     word = document.getElementById("word").value;
+    if (word == "" || word == null || word.length < 5) {
+        window.alert("Please enter atleast 5 letters");
+    }
+    else {
     getword = word.toLowerCase();
     console.log(getword);
     char_1 = getword.charAt(1);
@@ -32,4 +36,39 @@ function send() {
     input_box = "<br>Answer: <input type='text' class='form-control' id='answer1'>";
     button = "<br><br><button onclick='check()' class='btn btn-success'>Check</button>";
     document.getElementById("output").innerHTML = question_word + input_box + button;
+    document.getElementById("word").value = "";
+    }
+}
+questionturn = "player1";
+answerturn = "player2";
+function check() {
+    var answer = document.getElementById("answer1").value;
+    var convertedAns = answer.toLowerCase();
+    if (convertedAns == getword) {
+        if (answerturn == "player2") {
+            player2_score = player2_score + 1;
+            document.getElementById("player2_score").innerHTML = player2_score;
+        }
+        else {
+            player1_score = player1_score + 1;
+            document.getElementById("player1_score").innerHTML = player1_score;
+        }
+    }
+    if (questionturn == "player1") {
+        questionturn = "player2";
+        document.getElementById("player_question").innerHTML = "Question Turn:" + player2_name;
+    }
+    else {
+        questionturn = "player1";
+        document.getElementById("player_question").innerHTML = "Question Turn:" + player1_name;
+    }
+    if (answerturn == "player1") {
+        answerturn = "player2";
+        document.getElementById("player_answer").innerHTML = "Answer Turn:" + player2_name;
+    }
+    else {
+        answerturn = "player1";
+        document.getElementById("player_answer").innerHTML = "Answer Turn:" + player1_name;
+    }
+    document.getElementById("output").innerHTML = "";
 }
